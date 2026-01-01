@@ -1,0 +1,197 @@
+@import url('https://fonts.cdnfonts.com/css/proxima-nova-2');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 text-gray-900 antialiased;
+    font-family: 'Proxima Nova', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+    font-family: 'Proxima Nova', sans-serif;
+  }
+}
+
+.proxima-nova-font {
+  font-family: 'Proxima Nova', sans-serif;
+}
+
+@layer components {
+  /* Paint splatter effect */
+  .paint-splatter {
+    position: relative;
+  }
+  
+  .paint-splatter::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(244, 63, 94, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(10px);
+  }
+  
+  /* Canvas texture */
+  .canvas-texture {
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  }
+  
+  /* Art card with rainbow border */
+  .art-card {
+    @apply bg-white rounded-2xl shadow-lg border-2 border-transparent transition-all duration-300 hover:shadow-glow-rainbow;
+  }
+  
+  .art-card:hover {
+    border-image: linear-gradient(135deg, #F43F5E, #F97316, #EAB308, #22C55E, #3B82F6, #A855F7) 1;
+  }
+  
+  /* Gradient text */
+  .text-rainbow {
+    @apply bg-gradient-rainbow bg-clip-text text-transparent;
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-rainbow text-white font-bold rounded-xl shadow-lg hover:shadow-glow-rainbow transition-all duration-300 transform hover:-translate-y-1;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 bg-white text-art-purple-700 font-bold rounded-xl border-2 border-art-purple-400 hover:bg-purple-50 transition-all duration-300;
+  }
+  
+  .btn-auth {
+    @apply w-full px-6 py-4 bg-gradient-cool text-white font-bold rounded-xl shadow-lg hover:shadow-glow-blue transition-all duration-300;
+  }
+  
+  /* Progress bar */
+  .progress-bar {
+    @apply w-full h-3 bg-gray-200 rounded-full overflow-hidden;
+  }
+  
+  .progress-fill {
+    @apply h-full bg-gradient-rainbow transition-all duration-500;
+  }
+  
+  /* Level badges */
+  .level-badge {
+    @apply inline-block px-4 py-2 rounded-full text-sm font-bold text-white;
+  }
+  
+  .level-badge-elementary {
+    @apply bg-gradient-to-r from-art-yellow-400 to-art-orange-500;
+  }
+  
+  .level-badge-middle {
+    @apply bg-gradient-to-r from-art-green-400 to-art-blue-500;
+  }
+  
+  .level-badge-high {
+    @apply bg-gradient-to-r from-art-blue-500 to-art-purple-600;
+  }
+  
+  .level-badge-college {
+    @apply bg-gradient-to-r from-art-purple-600 to-art-red-600;
+  }
+  
+  /* Cookie banner */
+  .cookie-banner {
+    @apply fixed bottom-0 left-0 right-0 bg-white border-t-4 border-art-purple-500 shadow-2xl z-50 p-6 canvas-texture;
+  }
+  
+  /* 3D Text Effect */
+  .text-3d {
+    text-shadow: 
+      0 1px 0 #ccc,
+      0 2px 0 #c9c9c9,
+      0 3px 0 #bbb,
+      0 4px 0 #b9b9b9,
+      0 5px 0 #aaa,
+      0 6px 1px rgba(0,0,0,.1),
+      0 0 5px rgba(0,0,0,.1),
+      0 1px 3px rgba(0,0,0,.3),
+      0 3px 5px rgba(0,0,0,.2),
+      0 5px 10px rgba(0,0,0,.25),
+      0 10px 10px rgba(0,0,0,.2),
+      0 20px 20px rgba(0,0,0,.15);
+  }
+
+  .text-3d-white {
+    text-shadow: 
+      0 1px 0 #fff,
+      0 2px 0 #f0f0f0,
+      0 3px 0 #e0e0e0,
+      0 4px 1px rgba(0,0,0,.1);
+  }
+
+  /* Glassmorphism */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-2xl;
+  }
+}
+
+@layer utilities {
+  .text-gradient-warm {
+    @apply bg-gradient-warm bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-cool {
+    @apply bg-gradient-cool bg-clip-text text-transparent;
+  }
+}
+
+/* Page transitions */
+.page-transition {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar with rainbow */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #F43F5E, #F97316, #EAB308, #22C55E, #3B82F6, #A855F7);
+  @apply rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #E11D48, #EA580C, #CA8A04, #16A34A, #2563EB, #9333EA);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
