@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useEffect, useContext, useState } from 'react';
-import { cookieUtils, authAPI } from '../src/lib/api';
+import { cookieUtils, authAPI } from '../lib/api';
 
 const AuthContext = createContext();
 
@@ -34,4 +34,4 @@ export const AuthProvider = ({ children }) => {
   );
 }
 
-export default useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
