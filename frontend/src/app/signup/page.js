@@ -72,32 +72,32 @@ export default function SignupPage() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">First Name</label>
-                <input type="text" value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})} className="input-field" required />
+                <input type="text" value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})} className="input-field w-full px-5 py-3 rounded-2xl bg-neutral-900/70 text-white placeholder-gray-500 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:shadow-[0_0_25px_rgba(34,211,238,0.35)] focus:bg-neutral-900/90" required />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Last Name</label>
-                <input type="text" value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})} className="input-field" required />
+                <input type="text" value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})} className="input-field w-full px-5 py-3 rounded-2xl bg-neutral-900/70 text-white placeholder-gray-500 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:shadow-[0_0_25px_rgba(34,211,238,0.35)] focus:bg-neutral-900/90" required />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Email</label>
-              <input type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="input-field" required />
+              <input type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="input-field w-full px-5 py-3 rounded-2xl bg-neutral-900/70 text-white placeholder-gray-500 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:shadow-[0_0_25px_rgba(34,211,238,0.35)] focus:bg-neutral-900/90" required />
             </div>
 
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Username</label>
-              <input type="text" value={formData.username} onChange={(e) => setFormData({...formData, username: e.target.value})} className="input-field" required />
+              <input type="text" value={formData.username} onChange={(e) => setFormData({...formData, username: e.target.value})} className="input-field w-full px-5 py-3 rounded-2xl bg-neutral-900/70 text-white placeholder-gray-500 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:shadow-[0_0_25px_rgba(34,211,238,0.35)] focus:bg-neutral-900/90" required />
             </div>
 
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Password (min 8 chars)</label>
-              <input type="password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} className="input-field" required />
+              <input type="password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} className="input-field w-full px-5 py-3 rounded-2xl bg-neutral-900/70 text-white placeholder-gray-500 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:shadow-[0_0_25px_rgba(34,211,238,0.35)] focus:bg-neutral-900/90" required />
             </div>
 
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Confirm Password</label>
-              <input type="password" value={formData.confirmPassword} onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})} className="input-field" required />
+              <input type="password" value={formData.confirmPassword} onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})} className="input-field w-full px-5 py-3 rounded-2xl bg-neutral-900/70 text-white placeholder-gray-500 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:shadow-[0_0_25px_rgba(34,211,238,0.35)] focus:bg-neutral-900/90" required />
             </div>
 
             <button type="submit" disabled={loading} className="btn-auth disabled:opacity-50">

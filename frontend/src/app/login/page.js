@@ -56,7 +56,7 @@ export default function LoginPage() {
                 type="text"
                 value={formData.emailOrUsername}
                 onChange={(e) => setFormData({...formData, emailOrUsername: e.target.value})}
-                className="input-field"
+                className="input-field w-full px-5 py-3 rounded-2xl bg-neutral-900/70 text-white placeholder-gray-500 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:shadow-[0_0_25px_rgba(34,211,238,0.35)] focus:bg-neutral-900/90"
                 required
               />
             </div>
@@ -69,7 +69,7 @@ export default function LoginPage() {
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                className="input-field"
+                className="input-field w-full px-5 py-3 rounded-2xl bg-neutral-900/70 text-white placeholder-gray-500 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:shadow-[0_0_25px_rgba(34,211,238,0.35)] focus:bg-neutral-900/90"
                 required
               />
             </div>
