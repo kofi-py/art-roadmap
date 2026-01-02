@@ -2,31 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { authAPI, cookieUtils } from '../lib/api';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navigation() {
   const pathname = usePathname();
-  const [user, setUser] = useState(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const userInfo = cookieUtils.getUserInfo();
-    if (userInfo) {
-      setUser(userInfo);
-    }
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      await authAPI.logout();
-      setUser(null);
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
+  const { user, logout } = useAuth();
 
   const navLinks = [
     { href: '/', label: 'Home', icon: '🏠' },
@@ -64,41 +44,39 @@ export default function Navigation() {
               </Link>
             ))}
 
-            {mounted && (
-              <div className="ml-4 pl-4 border-l-2 border-gray-300">
-                {user ? (
-                  <div className="flex items-center gap-3">
-                    <div className="hidden md:block text-right">
-                      <div className="text-sm font-semibold text-gray-900">
-                        {user.firstName} {user.lastName}
-                      </div>
-                      <div className="text-xs text-gray-500">@{user.username}</div>
+            <div className="ml-4 pl-4 border-l-2 border-gray-300">
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="hidden md:block text-right">
+                    <div className="text-sm font-semibold text-gray-900">
+                      {user.firstName} {user.lastName}
                     </div>
-                    <button
-                      onClick={handleLogout}
-                      className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
-                    >
-                      Logout
-                    </button>
+                    <div className="text-xs text-gray-500">@{user.username}</div>
                   </div>
-                ) : (
-                  <div className="flex gap-2">
-                    <Link
-                      href="/login"
-                      className="px-4 py-2 text-art-purple-600 font-medium hover:bg-purple-50 rounded-lg transition-all"
-                    >
-                      Login
-                    </Link>
-                    <Link
-                      href="/signup"
-                      className="px-4 py-2 bg-gradient-rainbow text-white rounded-lg font-medium hover:shadow-glow-rainbow transition-all"
-                    >
-                      Sign Up
-                    </Link>
-                  </div>
-                )}
-              </div>
-            )}
+                  <button
+                    onClick={logout}
+                    className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <Link
+                    href="/login"
+                    className="px-4 py-2 text-art-purple-600 font-medium hover:bg-purple-50 rounded-lg transition-all"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="px-4 py-2 bg-gradient-rainbow text-white rounded-lg font-medium hover:shadow-glow-rainbow transition-all"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

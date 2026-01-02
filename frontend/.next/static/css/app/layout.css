@@ -1041,14 +1041,14 @@ h1, h2, h3, h4, h5, h6{
 .rounded-bl-2xl{
   border-bottom-left-radius: 1rem;
 }
+.border{
+  border-width: 1px;
+}
 .border-2{
   border-width: 2px;
 }
 .border-4{
   border-width: 4px;
-}
-.border{
-  border-width: 1px;
 }
 .border-b{
   border-bottom-width: 1px;
@@ -1188,6 +1188,9 @@ h1, h2, h3, h4, h5, h6{
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
 }
+.bg-neutral-900\/70{
+  background-color: rgb(23 23 23 / 0.7);
+}
 .bg-red-50{
   --tw-bg-opacity: 1;
   background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
@@ -1207,9 +1210,6 @@ h1, h2, h3, h4, h5, h6{
 }
 .bg-white\/95{
   background-color: rgb(255 255 255 / 0.95);
-}
-.bg-neutral-900\/70{
-  background-color: rgb(23 23 23 / 0.7);
 }
 .bg-gradient-cool{
   background-image: linear-gradient(135deg, #93C5FD 0%, #A855F7 50%, #F43F5E 100%);
@@ -1655,6 +1655,11 @@ h1, h2, h3, h4, h5, h6{
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.shadow-\[0_8px_30px_rgba\(0\2c 0\2c 0\2c 0\.6\)\]{
+  --tw-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  --tw-shadow-colored: 0 8px 30px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .shadow-glow-blue{
   --tw-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
   --tw-shadow-colored: 0 0 30px var(--tw-shadow-color);
@@ -1678,11 +1683,6 @@ h1, h2, h3, h4, h5, h6{
 .shadow-sm{
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-.shadow-\[0_8px_30px_rgba\(0\2c 0\2c 0\2c 0\.6\)\]{
-  --tw-shadow: 0 8px 30px rgba(0,0,0,0.6);
-  --tw-shadow-colored: 0 8px 30px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .shadow-art-purple-200\/50{
@@ -1732,11 +1732,11 @@ h1, h2, h3, h4, h5, h6{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-.duration-500{
-  transition-duration: 500ms;
-}
 .duration-300{
   transition-duration: 300ms;
+}
+.duration-500{
+  transition-duration: 500ms;
 }
 
 .proxima-nova-font {
