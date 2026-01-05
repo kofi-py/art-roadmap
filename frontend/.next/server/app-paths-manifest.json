@@ -1,5 +1,7 @@
 {
-  "/forum/page": "app/forum/page.js",
-  "/forum/new/page": "app/forum/new/page.js",
-  "/page": "app/page.js"
+  "/not-found": "app/not-found.js",
+  "/curriculum/page": "app/curriculum/page.js",
+  "/page": "app/page.js",
+  "/diagnostic/page": "app/diagnostic/page.js",
+  "/forum/page": "app/forum/page.js"
 }

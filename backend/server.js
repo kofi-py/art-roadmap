@@ -158,6 +158,17 @@ app.post('/auth/logout', (req, res) => {
 
 // ==================== FORUM ROUTES ====================
 
+// Get all categories
+app.get('/api/forum/categories', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM categories ORDER BY id ASC');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Fetch categories error:', err);
+    res.status(500).json({ error: 'Failed to fetch categories' });
+  }
+});
+
 // Create post (THIS fixes + New Discussion)
 app.post('/api/forum/posts', requireAuth, async (req, res) => {
   try {
@@ -177,6 +188,94 @@ app.post('/api/forum/posts', requireAuth, async (req, res) => {
   } catch (err) {
     console.error('Create post error:', err);
     res.status(500).json({ error: 'Failed to create post' });
+  }
+});
+
+// Get all posts
+app.get('/api/forum/posts', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT p.*, u.username as author, c.name as category_name,
+      (SELECT COUNT(*) FROM forum_replies r WHERE r.post_id = p.id) as reply_count
+      FROM forum_posts p
+      JOIN users u ON p.user_id = u.id
+      LEFT JOIN categories c ON p.category_id = c.id
+      ORDER BY p.created_at DESC
+    `);
+    res.json({ posts: result.rows });
+  } catch (err) {
+    console.error('Fetch posts error:', err);
+    res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+});
+
+// Get single post with replies
+app.get('/api/forum/posts/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Get post
+    const postResult = await pool.query(`
+      SELECT p.*, u.username as author, c.name as category_name
+      FROM forum_posts p
+      JOIN users u ON p.user_id = u.id
+      LEFT JOIN categories c ON p.category_id = c.id
+      WHERE p.id = $1
+    `, [id]);
+
+    if (postResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    // Get replies
+    const repliesResult = await pool.query(`
+      SELECT r.*, u.username as author
+      FROM forum_replies r
+      JOIN users u ON r.user_id = u.id
+      WHERE r.post_id = $1
+      ORDER BY r.created_at ASC
+    `, [id]);
+
+    res.json({
+      post: postResult.rows[0],
+      replies: repliesResult.rows
+    });
+  } catch (err) {
+    console.error('Fetch post detail error:', err);
+    res.status(500).json({ error: 'Failed to fetch post details' });
+  }
+});
+
+// Create reply
+app.post('/api/forum/posts/:id/replies', requireAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { content } = req.body;
+
+    if (!content) {
+      return res.status(400).json({ error: 'Content required' });
+    }
+
+    const result = await pool.query(
+      `INSERT INTO forum_replies (post_id, user_id, content)
+       VALUES ($1, $2, $3)
+       RETURNING id, content, created_at`,
+      [id, req.session.userId, content]
+    );
+
+    // Fetch the username for response
+    const userResult = await pool.query('SELECT username FROM users WHERE id = $1', [req.session.userId]);
+
+    res.status(201).json({
+      success: true,
+      reply: {
+        ...result.rows[0],
+        author: userResult.rows[0].username
+      }
+    });
+  } catch (err) {
+    console.error('Create reply error:', err);
+    res.status(500).json({ error: 'Failed to create reply' });
   }
 });
 
@@ -204,11 +303,61 @@ app.use((err, req, res, next) => {
     const client = await pool.connect();
     const res = await client.query('SELECT NOW()');
     console.log('🟢 Neon Postgres connected at:', res.rows[0].now);
+    
+    // Ensure tables exist
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS user_progress (
+        user_id INTEGER REFERENCES users(id),
+        course_id VARCHAR(50) NOT NULL,
+        completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (user_id, course_id)
+      );
+    `);
+    console.log('✅ Progress table ready');
+    
     client.release();
   } catch (err) {
     console.error('🔴 Neon Postgres connection failed:', err.message);
   }
 })();
+
+// ==================== PROGRESS ROUTES ====================
+
+app.get('/api/progress', requireAuth, async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT course_id FROM user_progress WHERE user_id = $1',
+      [req.session.userId]
+    );
+    res.json(result.rows.map(row => row.course_id));
+  } catch (err) {
+    console.error('Get progress error:', err);
+    res.status(500).json({ error: 'Failed to fetch progress' });
+  }
+});
+
+app.post('/api/progress', requireAuth, async (req, res) => {
+  try {
+    const { courseId, completed } = req.body;
+    
+    if (completed) {
+      await pool.query(
+        'INSERT INTO user_progress (user_id, course_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+        [req.session.userId, courseId]
+      );
+    } else {
+      await pool.query(
+        'DELETE FROM user_progress WHERE user_id = $1 AND course_id = $2',
+        [req.session.userId, courseId]
+      );
+    }
+    
+    res.json({ success: true, courseId, completed });
+  } catch (err) {
+    console.error('Update progress error:', err);
+    res.status(500).json({ error: 'Failed to update progress' });
+  }
+});
 
 
 app.listen(PORT, () => {

@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext'
 
 export default function Navigation() {
   const pathname = usePathname();
-  const { user, logout } = useAuth();
+  const { user, logout, loading } = useAuth();
 
   const navLinks = [
     { href: '/', label: 'Home', icon: '🏠' },
@@ -45,7 +45,10 @@ export default function Navigation() {
             ))}
 
             <div className="ml-4 pl-4 border-l-2 border-gray-300">
-              {user ? (
+              {loading ? (
+                // Loading state placeholder (prevents flash of wrong state)
+                <div className="h-10 w-20 bg-gray-100 rounded-lg animate-pulse" />
+              ) : user ? (
                 <div className="flex items-center gap-3">
                   <div className="hidden md:block text-right">
                     <div className="text-sm font-semibold text-gray-900">
