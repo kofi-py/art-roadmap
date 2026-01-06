@@ -42,7 +42,7 @@ export default function SignupPage() {
         formData.username,
         formData.password
       );
-      router.push('/');
+      router.push('/login');
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
     } finally {

@@ -21,7 +21,7 @@ export default function LoginPage() {
 
     try {
       await authAPI.login(formData.emailOrUsername, formData.password);
-      router.push('/');
+      router.push('/curriculum');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     } finally {
