@@ -26,10 +26,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/forum/page.js"
     ],
-    "/not-found": [
+    "/forum/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/not-found.js"
+      "static/chunks/app/forum/[id]/page.js"
     ]
   }
 }
