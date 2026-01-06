@@ -23,9 +23,10 @@ export default function ForumPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
         const [postsRes, catsRes] = await Promise.all([
-          fetch('http://localhost:5000/api/forum/posts', { credentials: 'include' }),
-          fetch('http://localhost:5000/api/forum/categories')
+          fetch(`${API_URL}/api/forum/posts`, { credentials: 'include' }),
+          fetch(`${API_URL}/api/forum/categories`)
         ]);
 
         const postsData = await postsRes.json();
@@ -49,7 +50,8 @@ export default function ForumPage() {
     if (!replyContent[postId]?.trim()) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/forum/posts/${postId}/replies`, {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${API_URL}/api/forum/posts/${postId}/replies`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: replyContent[postId] }),

@@ -15,7 +15,8 @@ export default function NewDiscussionPage() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/forum/categories');
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${API_URL}/api/forum/categories`);
         const data = await res.json();
         setCategories(data);
         if (data.length > 0) {
@@ -40,7 +41,8 @@ export default function NewDiscussionPage() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/forum/posts', {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${API_URL}/api/forum/posts`, {
         method: 'POST',
         credentials: 'include',
         headers: {

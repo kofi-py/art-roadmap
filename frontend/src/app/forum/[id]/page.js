@@ -18,7 +18,8 @@ export default function PostDetailPage() {
   useEffect(() => {
     const fetchPostDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/forum/posts/${id}`);
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${API_URL}/api/forum/posts/${id}`);
         if (!res.ok) throw new Error('Post not found');
         const data = await res.json();
         setPost(data.post);
@@ -40,7 +41,8 @@ export default function PostDetailPage() {
 
     setSubmitting(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/forum/posts/${id}/replies`, {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${API_URL}/api/forum/posts/${id}/replies`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
